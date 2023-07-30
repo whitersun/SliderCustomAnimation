@@ -155,7 +155,7 @@ function ClickToChangeNextSlide(event) {
 
     if (slideConditionalArray.length > 5) {
         const slideConditional = slideConditionalArray.slice(0, 5);
-        const slideConditionalTail = [...slideConditionalArray.slice(5, slideConditionalArray.length), ...slideConditionalArray.slice(0, 5)];
+        const slideConditionalTail = [...slideConditionalArray.slice(slideConditionalArray.length - 5)];
         const slideEndItems = slideEnd.find('.slide-item');
     
         slideConditionalTail.forEach(function(conditional) {
