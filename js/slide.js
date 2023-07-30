@@ -155,7 +155,7 @@ function ClickToChangeNextSlide(event) {
 
     if (slideConditionalArray.length > 5) {
         const slideConditional = slideConditionalArray.slice(0, 5);
-        const slideConditionalTail = [...slideConditionalArray.slice(slideConditionalArray.length - 5)];
+        const slideConditionalTail = slideConditionalArray.slice(5);
         const slideEndItems = slideEnd.find('.slide-item');
     
         slideConditionalTail.forEach(function(conditional) {
@@ -165,7 +165,11 @@ function ClickToChangeNextSlide(event) {
             slideEndItems.filter(`[data-slide="${conditional}"]`).addClass('active');
         });
     } else {
+        
         slideConditionalArray.forEach(function(conditional) {
+            if (conditional === increasedIndex) {
+                slideEndItems.filter(`[data-slide="${conditional}"]`).removeClass('active');
+            }
             slideEndItems.filter(`[data-slide="${conditional}"]`).addClass('active');
         });
     }
