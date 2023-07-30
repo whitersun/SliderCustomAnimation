@@ -153,8 +153,6 @@ function ClickToChangeNextSlide(event) {
         slideEnd.find(`.slide-item[data-slide="${conditional}"]`).attr('style', style);
     });
 
-    console.log('slideConditionalArray: ', slideConditionalArray);
-
     if (slideConditionalArray.length > 5) {
         const slideConditional = slideConditionalArray.slice(0, 5);
         const slideConditionalTail = [...slideConditionalArray.slice(5, slideConditionalArray.length), ...slideConditionalArray.slice(0, 5)];
