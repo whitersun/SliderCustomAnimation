@@ -1,0 +1,517 @@
+$lato: 'Lato', sans-serif;
+$montserrat: 'Montserrat', sans-serif;
+$poppins: 'Poppins', sans-serif;
+$sourceCodePro: 'Source Sans Pro', sans-serif;
+
+$schema-color-1: #FF4824;
+$schema-color-2: #494949;
+
+/** SlideStart sizes */
+$slideStartWidth: 100%;
+$slideStartHeight: 650px;
+/** SlideStart sizes */
+
+/** GridSizes */
+$gridStart: 900px;
+$gridEnd: 1fr;
+/** GridSizes */
+
+
+
+/** SlideEnd sizes */
+$slideEndWidth: 325px;
+$slideEndHeight: 650px;
+/** SlideEnd sizes */
+
+
+
+/** dpContentPosition */
+$top: 390px;
+$left: 48px;
+$translateY: 200px;
+/** dpContentPosition */
+
+
+/** Global Setting */
+* {
+    font-family: $lato;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.img-fluid {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.skeleton {
+	--bg: #e1e1e1;
+	--glare-bg: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.4), transparent);
+	position: relative;
+	background-color: var(--bg);
+	overflow: hidden;
+}
+
+.skeleton::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: var(--glare-bg);
+	transform: translateX(-100%);
+	animation: skeleton-glare 1.75s infinite ease-out;
+	z-index: 1;
+}
+
+@keyframes skeleton-glare {
+	to {
+		transform: translateX(100%)
+	}
+}
+
+@keyframes reveal {
+    from {
+        clip-path: inset(0 0 0 100%);
+        transform: scale(2);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+        transform: scale(1);
+    }
+}
+
+@keyframes showContent {
+    from {
+        opacity: 0;
+        transform: translate(0, 200px);
+        filter: blur(33px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+        filter: blur(0);
+    }
+}
+
+/** Global Setting */
+
+.slideWrapperContainer {
+    display: block;
+    max-width: 1440px;
+    width: 100%;
+    height: auto;
+
+    margin: auto;
+    padding: 0 20px;
+
+    .head {
+        display: grid;
+        grid-template-columns: 55% 1fr;
+        align-items: center;
+        grid-gap: 120px;
+
+        width: 100%;
+        height: auto;
+
+        margin: 40px auto;
+        padding-top: 40px;
+
+        @media screen and (max-width: 991.98px) {
+            grid-template-columns: 35% 1fr;
+        }
+        @media screen and (max-width: 767.98px) {
+            grid-template-columns: 1fr;
+            grid-gap: 5px;
+        }
+
+        .title {
+            display: block;
+            width: 100%;
+            height: auto;
+            
+            h1 {
+                font-size: 86px;
+                font-weight: 600;
+                font-family: $poppins;
+                
+                color: $schema-color-1;
+                line-height: 100px;
+
+
+                @media screen and (max-width: 991.98px) {
+                    font-size: 60px;
+                    line-height: 82px;
+                }
+            }
+        }
+
+        .subTitle {
+            display: block;
+            width: 100%;
+            height: auto;
+
+            color: $schema-color-2;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 32px;
+            text-shadow: 0px 4px 144px rgba(0, 0, 0, 0.5);
+
+            opacity: 0.8;
+            letter-spacing: 0;
+            font-family: $sourceCodePro;
+        }
+    }
+
+    .contentContainer {
+        display: block;
+        width: 100%;
+        height: 45.4vw;
+
+        @media screen and (max-width: 1399.98px) {
+            height: 40.4vw;
+        }
+        @media screen and (max-width: 767.98px) {
+            height: 70vw;
+        }
+
+        .slideBox {
+            display: grid;
+            grid-template-columns: $gridStart $gridEnd;
+            grid-gap: 20px;
+            width: 100%;
+            height: 100%;
+
+
+            @media screen and (max-width: 1399.98px) {
+                grid-template-columns: 70vw $gridEnd;
+            }
+            @media screen and (max-width: 991.98px) {
+                grid-template-columns: 65vw $gridEnd;
+            }
+
+
+            .layoutStart {
+                display: block;
+                position: relative;
+                width: 100%;
+                height: 100%;
+
+                z-index: 10;
+    
+                .slideContainer {
+                    display: block;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+
+                    .slideWrapper {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+
+                        position: relative;
+                        
+                        .slide-item {
+                            display: flex;
+                            align-items: center;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+
+                            opacity: 0;
+
+                            width: $slideStartWidth;
+                            height: $slideStartHeight;
+
+                            @media screen and (max-width: 1399.98px) {
+                                width: $slideStartWidth;
+                                // height: calc($slideStartHeight / 1.25);
+                                height: 100%;
+                            }
+
+                            background: transparent;
+                            border-radius: 10px;
+                            overflow: hidden;
+
+                            .dp-content {
+                                display: block;
+                                position: absolute;
+                                top: $top;
+                                left: $left;
+
+                                @media screen and (max-width: 1399.98px) {
+                                    top: calc($top / 1.5);
+                                }
+                                @media screen and (max-width: 1299.98px) {
+                                    top: 65%;
+                                    transform: translateY(-50%);
+                                }
+                                @media screen and (max-width: 575.98px) {
+                                    top: 65%;
+                                    left: 25px;
+                                    transform: translateY(-50%);
+                                }
+                                
+                                
+                                width: auto;
+                                height: auto;
+
+                                color: #ffffff;
+                                text-align: left;
+                                padding: 0;
+
+                                z-index: 2;
+
+                                .job, .name, .quantity, .social, .icon {
+                                    opacity: 0;
+                                    transform: translate(0, $translateY);
+                                    filter: blur(33px);
+
+                                    @media screen and (max-width: 1399.98px) {
+                                        transform: translate(0, calc($translateY / 1.5));
+                                    }
+                                }
+
+                                .job {
+                                    display: inline-flex;
+                                    width: 100%;
+                                    height: 24px;
+
+                                    font-size: 11px;
+                                    line-height: 16px;
+                                    font-family: $poppins;
+
+                                    @media screen and (max-width: 575.98px) {
+                                        margin-bottom: 1rem;
+                                    }
+                                    
+                                    .jobItem {
+                                        display: block;
+            
+                                        border: 1px solid;
+                                        border-radius: 52px;
+                                        
+                                        padding: 0 25px;
+                                        
+                                        font-size: 11px;
+                                        font-weight: 700;
+                                        line-height: 24px;
+                                        
+                                        text-align: center;
+                                        margin-right: 12px;
+                                        text-transform: uppercase;
+                                    }
+                                }
+
+                                .name {
+                                    display: block;
+
+                                    font-size: 48px;
+                                    font-weight: 600;
+                                    font-family: $montserrat;
+                                    text-transform: uppercase;
+                                    line-height: 1.3;
+                                    
+                                    border-bottom: 1px solid;
+                                    padding-bottom: 4%;
+
+                                    @media screen and (max-width: 767.98px) {
+                                        font-size: 32px;
+                                    }
+                                    @media screen and (max-width: 575.98px) {
+                                        font-size: 25px;
+                                    }
+                                }
+
+                                .quantity {
+                                    display: inline-block;
+                                    font-size: 24px;
+                                    font-weight: 600;
+                                    line-height: 1.3;
+                                    margin-top: 10px;
+
+                                    font-family: $montserrat;
+                                }
+
+                                .social {
+                                    font-size: 16px;
+                                    
+                                    line-height: 1.3;
+                                    letter-spacing: 0;
+                                    font-weight: 100;
+
+                                    font-family: $poppins;
+                                }
+
+                                .icon {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: flex-start;
+                                    gap: 10px;
+                                    
+                                    line-height: 24px;
+                                    text-align: left;
+                                    margin-top: 5px;
+
+                                    img {
+                                        max-width: 36.8px;
+                                        height: 24px;
+                                    }
+                                }
+                            }
+
+                            .dp-img {
+                                display: block;
+                                position: absolute;
+                                
+                                width: 100%;
+                                height: 100%;
+
+                                z-index: 1;
+                                clip-path: inset(0 0 0 100%);
+                                transform: scale(2);
+
+                                &::before {
+                                    content: "";
+                                    position: absolute;
+                                    width: 100%;
+                                    height: 70%;
+                                    z-index: 0;
+                                    bottom: 0;
+                                    pointer-events: none;
+                                    background: -webkit-linear-gradient(180deg, rgba(233, 8, 8, 0), rgba(255, 255, 255, 0.75));
+                                    background: -o-linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75));
+                                    background: -moz-linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75));
+                                    background: linear-gradient(180deg, rgba(237, 240, 234, 0), rgb(17, 13, 13));
+                                }
+
+                                img {
+                                    object-fit: cover;
+                                    object-position: center;
+                                }
+                            }
+
+                            &[data-slide='0'] {
+                                position: relative;
+                                opacity: 1;
+                            }
+
+                            &.active {
+                                position: relative;
+                                cursor: pointer;
+                                pointer-events: auto;
+                                
+                                opacity: 1;
+
+                                .dp-content {
+                                    .job { animation: showContent 1s ease-in-out 0.2s forwards; }
+                                    .name { animation: showContent 1s ease-in-out 0.1s forwards; }
+                                    .quantity { animation: showContent 1s ease-in-out 0.3s forwards; }
+                                    .social { animation: showContent 1s ease-in-out 0.4s forwards; }
+                                    .icon { animation: showContent 1s ease-in-out 0.4s forwards; }
+                                }
+
+                                .dp-img { animation: reveal 1s ease-in-out forwards; }
+                            }
+                        }
+                    }
+                }
+                
+            }
+
+            .layoutEnd {
+                display: block;
+                width: 100%;
+                height: auto;
+
+                position: relative;
+                z-index: 1;
+
+                .slideContainer {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+
+                    .slideWrapper {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+
+                        position: relative;
+
+                        .slide-item {
+                            display: flex;
+                            align-items: center;
+
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+
+                            width: $slideEndWidth;
+                            height: $slideEndHeight;
+
+                            @media screen and (max-width: 1399.98px) {
+                                // width: calc($slideEndWidth / 1.25);
+                                // height: calc($slideEndHeight / 1.25);
+                                width: 20vw;
+                                height: 100%;
+                            }
+
+                            border-radius: 10px;
+                            overflow: hidden;
+                        
+                            opacity: 0;
+                            transform: translateX(0) scale(1);
+
+                            transition-property: opacity, top, transform;
+                            transition-duration: 0.5s, 0.2s, 0.5s;
+                            transition-timing-function: ease-in-out;
+
+                            cursor: pointer;
+                            pointer-events: auto;
+
+
+                            &:hover {
+                                top: -3px;
+                            }
+
+                            &.active {
+                                opacity: 1;
+                            }
+
+                            // @for $i from 1 through 3 {
+                            //     &:nth-child(#{$i}) {
+                            //         transform: translate3d(0, 0, 0) scale(0.85);
+                            //     }
+                            // }
+
+
+                            .view, img {
+                                height: 100%;
+                            }
+
+                            img {
+                                object-fit: cover;
+                                object-position: center;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @media screen and (max-width: 767.98px) {
+                grid-template-columns: $gridEnd;
+            
+                .layoutEnd {
+                    display: none;
+                }
+            }
+        }
+    }
+}
