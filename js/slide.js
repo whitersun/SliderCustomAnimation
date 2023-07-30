@@ -154,17 +154,24 @@ function ClickToChangeNextSlide(event) {
     });
 
     console.log('slideConditionalArray: ', slideConditionalArray);
+
+    if (slideConditionalArray.length > 5) {
+        const slideConditional = slideConditionalArray.slice(0, 5);
+        const slideConditionalTail = [...slideConditionalArray.slice(5, slideConditionalArray.length), ...slideConditionalArray.slice(0, 5)];
+        const slideEndItems = slideEnd.find('.slide-item');
     
-    const slideConditional = slideConditionalArray.slice(0, slideConditionalArray.length - 2);
-    const slideConditionalTail = [...slideConditionalArray.slice(-2)];
-
-    slideConditionalTail.forEach(function(conditional) {
-        slideEnd.find(`.slide-item[data-slide="${conditional}"]`).removeClass('active');
-    })
-    slideConditional.forEach(function(conditional) {
-        slideEnd.find(`.slide-item[data-slide="${conditional}"]`).addClass('active');
-    })
-
+        slideConditionalTail.forEach(function(conditional) {
+            slideEndItems.filter(`[data-slide="${conditional}"]`).removeClass('active');
+        });
+        slideConditional.forEach(function(conditional) {
+            slideEndItems.filter(`[data-slide="${conditional}"]`).addClass('active');
+        });
+    } else {
+        slideConditionalArray.forEach(function(conditional) {
+            slideEndItems.filter(`[data-slide="${conditional}"]`).addClass('active');
+        });
+    }
+    
 
     const nextSlide = slideStart.find(`.slide-item[data-slide="${increasedIndex}"]`);
     nextSlide.addClass('active').animate({ position: 'relative', 'z-index': '1' }, function() {

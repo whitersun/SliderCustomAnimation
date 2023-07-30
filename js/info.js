@@ -70,5 +70,32 @@ export const info = [{
     "img": "./assets/images/S5.jpg",
     "quantity": "Over 50 milions",
     "social": "Plays on SoundCloud",
+}, {
+    "name": "Sunwoo Tyanna",
+    "job": "Rapper",
+    "class": "5",
+    "position": "5",
+    "jobItem": "Sing Writer",
+    "img": "./assets/images/S5.jpg",
+    "quantity": "Over 50 milions",
+    "social": "Plays on SoundCloud",
+}, {
+    "name": "Sunwoo Lyric",
+    "job": "Rapper",
+    "class": "5",
+    "position": "5",
+    "jobItem": "Sing Writer",
+    "img": "./assets/images/S5.jpg",
+    "quantity": "Over 50 milions",
+    "social": "Plays on SoundCloud",
+}, {
+    "name": "Sunwoo Jun",
+    "job": "Rapper",
+    "class": "5",
+    "position": "5",
+    "jobItem": "Sing Writer",
+    "img": "./assets/images/S5.jpg",
+    "quantity": "Over 50 milions",
+    "social": "Plays on SoundCloud",
 },];
 

@@ -120,6 +120,8 @@ body {
     margin: auto;
     padding: 0 20px;
 
+    overflow: hidden;
+
     .head {
         display: grid;
         grid-template-columns: 55% 1fr;
