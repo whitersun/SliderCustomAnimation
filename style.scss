@@ -40,6 +40,16 @@ $translateY: 200px;
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    // touch events 
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+}
+
 .img-fluid {
     max-width: 100%;
     width: 100%;
@@ -188,11 +198,8 @@ $translateY: 200px;
             height: 100%;
 
 
-            @media screen and (max-width: 1399.98px) {
-                grid-template-columns: 70vw $gridEnd;
-            }
-            @media screen and (max-width: 991.98px) {
-                grid-template-columns: 65vw $gridEnd;
+            @media screen and (max-width: 1499.98px) {
+                grid-template-columns: 60vw $gridEnd;
             }
 
 
@@ -229,6 +236,10 @@ $translateY: 200px;
                             width: $slideStartWidth;
                             height: $slideStartHeight;
 
+                            margin: 0;
+                            padding: 0;
+                            box-shadow: none;
+
                             @media screen and (max-width: 1399.98px) {
                                 width: $slideStartWidth;
                                 // height: calc($slideStartHeight / 1.25);
@@ -238,6 +249,9 @@ $translateY: 200px;
                             background: transparent;
                             border-radius: 10px;
                             overflow: hidden;
+
+                            // cursor: pointer;
+                            // pointer-events: all;
 
                             .dp-content {
                                 display: block;
@@ -455,6 +469,10 @@ $translateY: 200px;
 
                             width: $slideEndWidth;
                             height: $slideEndHeight;
+                            
+                            margin: 0;
+                            padding: 0;
+                            box-shadow: none;
 
                             @media screen and (max-width: 1399.98px) {
                                 // width: calc($slideEndWidth / 1.25);

@@ -51,7 +51,7 @@ function generateHTML() {
         const style = `${zIndex}; ${transform}`;
 
         return `
-            <div class="slide-item ${index > 0 ? 'active' : ''}" data-slide="${index}"
+            <div class="slide-item ${index > 0 && index <= 5 ? 'active' : ''}" data-slide="${index}"
             style="${style}">
                 <div class="view skeleton">
                     <img 
@@ -117,62 +117,57 @@ function LazyLoadingImage () {
     });
 }
 
-
-function cloneSlideItem () {
-    const initialSlide = slideEnd.find('.slide-item[data-slide="0"]').clone().attr({'style': 'transform: translateX(48%) scale(0.79)', 'data-slide': '6'}).removeClass('active');
-    slideEnd.append(initialSlide);
-}
-
 generateHTML();
-// cloneSlideItem();
 LazyLoadingImage();
 
 
 let increasedIndex = 0;
-function ClickToChangeNextSlide (event) {
+function ClickToChangeNextSlide(event) {
     event.preventDefault();
 
     const prevSlide = slideStart.find(`.slide-item[data-slide="${increasedIndex}"]`);
     prevSlide.css('position', 'absolute');
-    
-    increasedIndex += 1;
-    if (increasedIndex > information.length - 1) {
-        increasedIndex = 0;
-    }
 
+    increasedIndex = (increasedIndex + 1) % information.length;
 
     const slideEndItems = slideEnd.find('.slide-item');
-    slideEnd.find('.slide-item').each(function (index, item) {
-        slideEnd.find('.slide-item').eq(increasedIndex).removeClass('active');
 
-
-
-        const i = index;
-        // TODO if update current index increased by 1
-        index = index + increasedIndex;
-        const conditional = index >= slideEndItems.length ? Math.abs(slideEndItems.length - index) : index;
+    const slideConditionalArray = [];
+    slideEndItems.each(function(index, item) {
+        slideEndItems.eq(increasedIndex).removeClass('active');
         
-        slideEndItems.eq(conditional).addClass('active');
+        let conditional = (index + increasedIndex) % slideEndItems.length;
 
-        const zIndex = `z-index: ${slideEndItems.length - i}`;
-        const translateXValues = ['-100', '0', '14']; // Add more values if needed
-        const translateX = i < translateXValues.length ? translateXValues[(i)] : (i) * 9;
-        
+        slideConditionalArray.push(conditional);
+
+        const zIndex = `z-index: ${slideEndItems.length - index}`;
+        const translateXValues = ['-130', '0', '14']; // Add more values if needed
+        const translateX = index < translateXValues.length ? translateXValues[index] : index * 9;
+
         const scaleValues = ['1', '1', '0.95', '0.89', '0.85']; // Add more values if needed
-        const scale = i < scaleValues.length ? scaleValues[(i)] : '0.8';
+        const scale = index < scaleValues.length ? scaleValues[index] : '0.8';
         const transform = `transform: translateX(${translateX}%) scale(${scale})`;
-        
+
         const style = `${zIndex}; ${transform}`;
-        
+
         slideEnd.find(`.slide-item[data-slide="${conditional}"]`).attr('style', style);
     });
 
-
-
-
+    console.log('slideConditionalArray: ', slideConditionalArray);
     
+    const slideConditional = slideConditionalArray.slice(0, slideConditionalArray.length - 2);
+    const slideConditionalTail = [...slideConditionalArray.slice(-2)];
+
+    slideConditionalTail.forEach(function(conditional) {
+        slideEnd.find(`.slide-item[data-slide="${conditional}"]`).removeClass('active');
+    })
+    slideConditional.forEach(function(conditional) {
+        slideEnd.find(`.slide-item[data-slide="${conditional}"]`).addClass('active');
+    })
+
+
     const nextSlide = slideStart.find(`.slide-item[data-slide="${increasedIndex}"]`);
-    nextSlide.addClass('active').animate({ position: 'relative', 'z-index': '1' }, function () {
+    nextSlide.addClass('active').animate({ position: 'relative', 'z-index': '1' }, function() {
         prevSlide.css('z-index', '0');
         setTimeout(() => {
             prevSlide.removeClass('active');
