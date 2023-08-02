@@ -11,7 +11,7 @@ const slideEnd = layoutEnd.find('.slideWrapper');
 function generateHTML() {
     const generateSlideItem = (index, item) => {
         return `
-            <div class="slide-item" data-slide="${index}">
+            <div class="slide-item skeleton" data-slide="${index}" style="opacity: 1;">
                 <div class="dp-content">
                     <div class="job">
                         <div class="jobItem">${item.job}</div>
@@ -26,7 +26,7 @@ function generateHTML() {
                         <img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/spotify.svg" alt="spotify" />
                     </div>
                 </div>
-                <div class="dp-img skeleton">
+                <div class="dp-img">
                     <img
                         width="900"
                         height="645"
@@ -71,6 +71,11 @@ function generateHTML() {
     information.forEach(function (item, index) {
         slideStart.append(generateSlideItem(index, item));
         slideEnd.append(generateSlideItemEnd(index, item));
+
+        slideEnd.find('.slide-item').each(function (item, index) {
+            const imagesCache = $(this).find('.view img');
+            imagesCache.css('opacity', '0');
+        });
     });
 }
 
@@ -94,11 +99,14 @@ function LazyLoadingImage () {
 
     // Usage example:
     const imagePromises = slideStart.find('.slide-item').map(function (index, item) {
-        return loadImage(`https://source.unsplash.com/random/900x645/?japan-temple?${index}`)
+        const $this = $(this);
+        const imagesCache = $(this).find('.dp-img img');
+
+        return loadImage(imagesCache.attr('src'))
             .then((image) => {
                 console.log("Image loaded successfully");
                 // Do something with the loaded image
-                $('.skeleton').removeClass('skeleton');
+                $this.removeClass('.skeleton').css({ background: 'transparent', opacity: '' });
             })
             .catch((error) => {
                 console.error(error);
@@ -109,6 +117,13 @@ function LazyLoadingImage () {
     Promise.all(imagePromises).then(() => {
         console.log("All images loaded successfully");
         // Run your final action here after all images are loaded
+
+        $('.skeleton').removeClass('skeleton');
+
+        slideEnd.find('.slide-item').each(function (item, index) {
+            const imagesCache = $(this).find('.view img');
+            imagesCache.css('opacity', '1');
+        });
 
         slideStart.find('.slide-item[data-slide="0"]').addClass('active');
     }).catch((error) => {
@@ -129,6 +144,7 @@ function ClickToChangeNextSlide(event) {
     prevSlide.css('position', 'absolute');
 
     increasedIndex = (increasedIndex + 1) % information.length;
+    console.log('increasedIndex: ', increasedIndex);
 
     const slideEndItems = slideEnd.find('.slide-item');
 
@@ -153,26 +169,42 @@ function ClickToChangeNextSlide(event) {
         slideEnd.find(`.slide-item[data-slide="${conditional}"]`).attr('style', style);
     });
 
-    if (slideConditionalArray.length > 5) {
-        const slideConditional = slideConditionalArray.slice(0, 5);
-        const slideConditionalTail = slideConditionalArray.slice(5);
-        const slideEndItems = slideEnd.find('.slide-item');
+    console.log('slideConditionalArray: ', slideConditionalArray);
+    const slideConditionalArrayLength = slideConditionalArray.length;
     
-        slideConditionalTail.forEach(function(conditional) {
-            slideEndItems.filter(`[data-slide="${conditional}"]`).removeClass('active');
-        });
-        slideConditional.forEach(function(conditional) {
-            slideEndItems.filter(`[data-slide="${conditional}"]`).addClass('active');
-        });
-    } else {
-        
-        slideConditionalArray.forEach(function(conditional) {
-            if (conditional === increasedIndex) {
-                slideEndItems.filter(`[data-slide="${conditional}"]`).removeClass('active');
-            }
-            slideEndItems.filter(`[data-slide="${conditional}"]`).addClass('active');
-        });
+    function slideEndRemoveItems (conditional) {
+        slideEndItems
+        .filter(`[data-slide="${conditional}"]`)[0]
+        .classList
+        .remove('active');
     }
+
+    function slideEndAddItems (conditional) {
+        slideEndItems
+        .filter(`[data-slide="${conditional}"]`)[0]
+        .classList
+        .add('active');
+    }
+
+    if (slideConditionalArrayLength > 5) {
+        const slideConditional = slideConditionalArray.slice(1, 5);
+        const slideConditionalTail = slideConditionalArray.slice(5);
+
+        slideConditionalTail.forEach((conditional) => slideEndRemoveItems(conditional));
+        slideConditional.forEach((conditional) => slideEndAddItems([conditional]));
+    } else {
+        for (let i = 0; i < slideConditionalArrayLength; i++) {
+            const conditional = slideConditionalArray[i];
+
+            if (conditional === increasedIndex) {
+                slideEndRemoveItems(conditional);
+            }
+
+            if (i === 0) continue;
+            slideEndAddItems([conditional]);
+        }
+    }
+
     
 
     const nextSlide = slideStart.find(`.slide-item[data-slide="${increasedIndex}"]`);
