@@ -160,7 +160,7 @@ function ClickToChangeNextSlide(event) {
         const translateXValues = ['-130', '0', '14']; // Add more values if needed
         const translateX = index < translateXValues.length ? translateXValues[index] : index * 9;
 
-        const scaleValues = ['1', '1', '0.95', '0.89', '0.85']; // Add more values if needed
+        const scaleValues = ['0.98', '1', '0.95', '0.89', '0.85']; // Add more values if needed
         const scale = index < scaleValues.length ? scaleValues[index] : '0.8';
         const transform = `transform: translateX(${translateX}%) scale(${scale})`;
 
@@ -173,19 +173,15 @@ function ClickToChangeNextSlide(event) {
     const slideConditionalArrayLength = slideConditionalArray.length;
     
     function slideEndRemoveItems (conditional) {
-        slideEndItems
-        .filter(`[data-slide="${conditional}"]`)[0]
-        .classList
-        .remove('active');
+        slideEndItems.filter(`[data-slide="${conditional}"]`).removeClass('active');
     }
 
     function slideEndAddItems (conditional) {
         slideEndItems
-        .filter(`[data-slide="${conditional}"]`)[0]
-        .classList
-        .add('active');
+        .filter(`[data-slide="${conditional}"]`).addClass('active')
     }
 
+    slideEndItems.find(`[data-slide="${slideConditionalArray[0]}"]`).removeClass('active');
     if (slideConditionalArrayLength > 5) {
         const slideConditional = slideConditionalArray.slice(1, 5);
         const slideConditionalTail = slideConditionalArray.slice(5);
