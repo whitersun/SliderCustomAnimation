@@ -209,11 +209,42 @@ function ClickToChangeNextSlide(event) {
         setTimeout(() => {
             prevSlide.removeClass('active');
 
-            $(".slide-item").on("click", ClickToChangeNextSlide);
+            if (window.innerWidth < 768) {
+                $('.slide-item').on("click", ClickToChangeNextSlide);
+            } else {
+                slideStart.find('.slide-item').off("click", ClickToChangeNextSlide);
+                slideEnd.find(".slide-item").on("click", ClickToChangeNextSlide);
+            }
         }, 1000);
     });
 
     $(".slide-item").off("click", ClickToChangeNextSlide);
 }
 
-$(".slide-item").on("click", ClickToChangeNextSlide);
+function executedClickToChangeNextSlide() {
+    $('.slide-item').off("click", ClickToChangeNextSlide);
+
+    debounce(function () {
+        if (window.innerWidth < 768) {
+            console.log('click allowed');
+            $(".slide-item").on("click", ClickToChangeNextSlide);
+        } else {
+            console.log('only click on layoutEnd');
+            slideStart.find(".slide-item").off("click", ClickToChangeNextSlide);
+            slideEnd.find(".slide-item").on("click", ClickToChangeNextSlide);
+        }
+    }, 250);
+
+}
+
+
+let resizeTimer;
+function debounce (func, delay) {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(func, delay);
+}
+
+
+document.addEventListener('DOMContentLoaded', executedClickToChangeNextSlide);
+window.addEventListener('resize', executedClickToChangeNextSlide);
+
