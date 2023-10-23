@@ -24,6 +24,7 @@ function generateHTML() {
                             <div class="name">
                                 <span class="artistName">${item.name}</span>
                                 <span class="moreInfo">MORE INFO</span>
+                                <span class="lessInfo">LESS INFO</span>
                             </div>
                             
                             <div class="divider"></div>

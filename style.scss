@@ -431,6 +431,13 @@ body {
                                     }
 
                                     .moreInfo {
+                                        display: block;
+                                        font-size: 18px;
+                                        color: #e5e5e5;
+                                    }
+
+                                    .lessInfo {
+                                        display: none;
                                         font-size: 18px;
                                         color: #e5e5e5;
                                     }
@@ -617,6 +624,16 @@ body {
                             }
 
                             &:hover, &:focus {
+                                .name {
+                                    .moreInfo {
+                                        display: none;
+                                    }
+
+                                    .lessInfo {
+                                        display: block;
+                                    }
+                                }
+
                                 .divider {
                                     width: 100%;
 
