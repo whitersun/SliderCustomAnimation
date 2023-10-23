@@ -7,17 +7,31 @@ function generateHTML() {
     const generateSlideItem = (index, item) => {
         return `
         <div class="image-item">
-            <div class="image">
-            <img src="${item.imgHeight}" alt="">
+            <div class="containerWrapper">
+                <img  width="900" height="645" decoding="async" loading="lazy" class="img-fluid" src="${item.imgHeight}" alt="" />
             </div>
             <div class="image-content">
-                <div class="image-job">
-                    <div class="image-jobItem">${item.job}</div>
-                    <div class="image-jobItem">${item.jobItem}</div>
+                <div class="contentBox">                
+                    <div class="image-job">
+                        <div class="image-jobItem">${item.job}</div>
+                        ${item.jobItem ? `<div class="image-jobItem">${item.jobItem}</div>` : ''}
+                    </div>
+                    <div class="name">
+                        <span class="artistName">${item.name}</span>
+                        <button class="btn btnSeeMore">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m-7-7h14"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="divider"></div>
+                    <div class="describe">
+                        <span class="content">${item.describe_EN}</span>
+                    </div>
+
+                    <!-- <div class="quantity">${item.quantity}</div> -->
+                    <!-- <div class="social">${item.social}</div> -->
                 </div>
-                <div class="name">${item.name}</div>
-                    <div class="quantity">${item.quantity}</div>
-                    <div class="social">${item.social}</div>
+                
                 <div class="icon">
                     <img class="img-fluid" src="./assets/icons/facebook.svg" alt="facebook" /></a>
                     <img class="img-fluid" src="./assets/icons/youtube.svg" alt="youtube" /></a>
@@ -31,9 +45,28 @@ function generateHTML() {
     information.forEach(function (item, index) {
         layoutMobile.append(generateSlideItem(index, item));
     });
+
+    $('.btnSeeMore').on('click', function () {
+        const $this = $(this);
+        $this.toggleClass('active');
+
+        const contentBox = $this.parents('.contentBox').find('.describe .content')
+        const currentContentHeight = contentBox.height();
+
+        contentBox.parent().toggleClass('active');
+
+        if (!contentBox.parent().hasClass('active')) {
+            contentBox.parent().css({'max-height': '0', 'top': '3rem',  'opacity': '0'});
+        } else {
+            contentBox.parent().css({'max-height': `${currentContentHeight}px`, 'top': '0', 'opacity': '1'});
+        }
+
+
+    });
 }
 
 generateHTML();
+
 $('.image-slider').slick({
     // dots: true,
     // infinite: true,

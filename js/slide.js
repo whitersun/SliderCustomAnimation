@@ -26,8 +26,8 @@ function generateHTML() {
                                 <span class="moreInfo">MORE INFO</span>
                             </div>
                             
+                            <div class="divider"></div>
                             <div class="describe">
-                                <hr class="divider" />
                                 <span class="content">${item.describe_EN}</span>
                             </div>
                         </div>
