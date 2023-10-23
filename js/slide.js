@@ -6,44 +6,56 @@ const layoutEnd   = $('.layoutEnd');
 
 const slideStart = layoutStart.find('.slideWrapper');
 const slideEnd = layoutEnd.find('.slideWrapper');
+// var defaultTranslateXValues = ['-100', '0', '12', '22', '30', '36'];
+var defaultTranslateXValues = ['-100', '0', '14'];
+
 
 
 function generateHTML() {
     const generateSlideItem = (index, item) => {
-        return `
-            <div class="slide-item skeleton" data-slide="${index}" style="opacity: 1;">
-                <div class="dp-content">
-                    <div class="job">
-                        <div class="jobItem">${item.job}</div>
-                        <div class="jobItem">${item.jobItem}</div>
+            return `
+                <div class="slide-item skeleton" data-slide="${index}" style="opacity: 1;">
+                    <div class="dp-content">
+                        <div class="contentBox">
+                            <div class="job">
+                                <div class="jobItem">${item.job}</div>
+                                ${item.jobItem ? `<div class="jobItem">${item.jobItem}</div>` : ''}
+                            </div>
+                            <div class="name">
+                                <span class="artistName">${item.name}</span>
+                                <span class="moreInfo">MORE INFO</span>
+                            </div>
+                            
+                            <div class="describe">
+                                <hr class="divider" />
+                                <span class="content">${item.describe_EN}</span>
+                            </div>
+                        </div>
+
+                        <div class="icon">
+                            <a href=${item.fblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/facebook.svg" alt="facebook" /></a>
+                            <a href=${item.ytblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/youtube.svg" alt="youtube" /></a>
+                            <a href=${item.splink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/spotify.svg" alt="spotify" /></a>
+                        </div>
                     </div>
-                    <div class="name">${item.name}</div>
-                    <div class="quantity">${item.quantity}</div>
-                    <div class="social">${item.social}</div>
-                    <div class="icon">
-                        <img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/facebook.svg" alt="facebook" />
-                        <img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/youtube.svg" alt="youtube" />
-                        <img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/spotify.svg" alt="spotify" />
+                    <div class="dp-img">
+                        <img
+                            width="900"
+                            height="645"
+                            decoding="async"
+                            loading="lazy"
+                            class="img-fluid" src="${item.img}"
+                            alt="${item.name}"
+                        />
                     </div>
                 </div>
-                <div class="dp-img">
-                    <img
-                        width="900"
-                        height="645"
-                        decoding="async"
-                        loading="lazy"
-                        class="img-fluid" src="https://source.unsplash.com/random/900x645/?japan-temple?${index}"
-                        alt="${item.name}"
-                    />
-                </div>
-            </div>
-        `
+            `
     }
     
     const generateSlideItemEnd = (index, item) => {
         const zIndex = `z-index: ${information.length - index}`;
-        const translateXValues = ['-100', '0', '14']; // Add more values if needed
-        const scaleValues = ['0.8', '1', '0.95', '0.89', '0.85']; // Add more values if needed
+        const translateXValues = defaultTranslateXValues; // Add more values if needed
+        const scaleValues = ['0.8', '1', '0.95', '0.9', '0.85']; // Add more values if needed
         const translateX = index < translateXValues.length ? translateXValues[index] : index * 9;
         const scale = index < scaleValues.length ? scaleValues[index] : '0.8';
         const transform = `transform: translateX(${translateX}%) scale(${scale})`;
@@ -60,7 +72,7 @@ function generateHTML() {
                         decoding="async"
                         loading="lazy"
                         class="img-fluid"
-                        src="https://source.unsplash.com/random/900x645/?japan-temple?${index}"
+                        src="${item.imgHeight}"
                         alt="${item.name}"
                     />
                 </div>
@@ -157,16 +169,16 @@ function ClickToChangeNextSlide(event) {
         slideConditionalArray.push(conditional);
 
         const zIndex = `z-index: ${slideEndItems.length - index}`;
-        const translateXValues = ['-130', '0', '14']; // Add more values if needed
+        const translateXValues = defaultTranslateXValues; // Add more values if needed
         const translateX = index < translateXValues.length ? translateXValues[index] : index * 9;
 
-        const scaleValues = ['0.98', '1', '0.95', '0.89', '0.85']; // Add more values if needed
+        const scaleValues = ['0.999', '1', '0.95', '0.89', '0.85']; // Add more values if needed
         const scale = index < scaleValues.length ? scaleValues[index] : '0.8';
         const transform = `transform: translateX(${translateX}%) scale(${scale})`;
 
         const style = `${zIndex}; ${transform}`;
 
-        slideEnd.find(`.slide-item[data-slide="${conditional}"]`).attr('style', style);
+        slideEnd.find(`.slide-item[data-slide="${conditional}"]`).attr('style', style); 
     });
 
     console.log('slideConditionalArray: ', slideConditionalArray);
@@ -208,43 +220,38 @@ function ClickToChangeNextSlide(event) {
         prevSlide.css('z-index', '0');
         setTimeout(() => {
             prevSlide.removeClass('active');
-
-            if (window.innerWidth < 768) {
-                $('.slide-item').on("click", ClickToChangeNextSlide);
-            } else {
-                slideStart.find('.slide-item').off("click", ClickToChangeNextSlide);
+            if(window,innerWidth <= 768)
+                $(".slide-item").on("click", ClickToChangeNextSlide);
+            else {
+                slideStart.find(".slide-item").off("click", ClickToChangeNextSlide);
                 slideEnd.find(".slide-item").on("click", ClickToChangeNextSlide);
             }
-        }, 1000);
+        }, 250);
     });
 
     $(".slide-item").off("click", ClickToChangeNextSlide);
 }
 
-function executedClickToChangeNextSlide() {
-    $('.slide-item').off("click", ClickToChangeNextSlide);
+function excuteClickToChangeNextSlide() {
+    $(".slide-item").off("click", ClickToChangeNextSlide);
 
-    debounce(function () {
-        if (window.innerWidth < 768) {
-            console.log('click allowed');
+    debounce(function() {
+        if(window,innerWidth <= 768) {
             $(".slide-item").on("click", ClickToChangeNextSlide);
-        } else {
-            console.log('only click on layoutEnd');
+        }
+        else {
             slideStart.find(".slide-item").off("click", ClickToChangeNextSlide);
             slideEnd.find(".slide-item").on("click", ClickToChangeNextSlide);
         }
-    }, 250);
-
+    },250)
 }
 
-
 let resizeTimer;
-function debounce (func, delay) {
+
+function debounce(func, delay) {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(func, delay);
 }
 
-
-document.addEventListener('DOMContentLoaded', executedClickToChangeNextSlide);
-window.addEventListener('resize', executedClickToChangeNextSlide);
-
+document.addEventListener("DOMContentLoaded", excuteClickToChangeNextSlide);
+window.addEventListener("resize", excuteClickToChangeNextSlide);

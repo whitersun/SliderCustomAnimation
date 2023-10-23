@@ -1,5 +1,15 @@
 {
 	"dependencies": {
 		"jquery": "^3.7.0"
-	}
+	},
+	"name": "3dstackcardslider",
+	"description": "SliderCard",
+	"version": "1.0.0",
+	"main": "script.backup.js",
+	"scripts": {
+		"sass:style:watch": "sass --watch style.scss:style.min.css --style compressed"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
 }

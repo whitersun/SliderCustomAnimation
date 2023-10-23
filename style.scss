@@ -2,6 +2,7 @@ $lato: 'Lato', sans-serif;
 $montserrat: 'Montserrat', sans-serif;
 $poppins: 'Poppins', sans-serif;
 $sourceCodePro: 'Source Sans Pro', sans-serif;
+$regular: 'Regular', sans-serif;
 
 $schema-color-1: #FF4824;
 $schema-color-2: #494949;
@@ -26,7 +27,7 @@ $slideEndHeight: 650px;
 
 
 /** dpContentPosition */
-$top: 390px;
+$top: 50%;
 $left: 48px;
 $translateY: 200px;
 /** dpContentPosition */
@@ -116,9 +117,14 @@ body {
     max-width: 1440px;
     width: 100%;
     height: auto;
+    margin: 100px auto;
+    background-color: #fff;
 
-    margin: auto;
-    padding: 0 20px;
+    border-radius: 12px;
+
+    @media screen and (min-width: 1440px) {
+        height: 800px;
+    }
 
     overflow: hidden;
 
@@ -126,26 +132,47 @@ body {
         display: grid;
         grid-template-columns: 55% 1fr;
         align-items: center;
-        grid-gap: 120px;
+        grid-gap: 100px;
 
-        width: 100%;
+        width: 95%;
         height: auto;
 
-        margin: 40px auto;
-        padding-top: 40px;
-
+        margin: 0 54px 40px 54px;
+        // margin-bottom: 40px;
+        
+        @media screen and (max-width: 1280.98px) {
+            grid-template-columns: 45% 1fr;
+        }
+        @media screen and (max-width: 1133.98px) {
+            margin-bottom: 30px;
+        }
         @media screen and (max-width: 991.98px) {
             grid-template-columns: 35% 1fr;
+            margin-bottom: 25px;
         }
         @media screen and (max-width: 767.98px) {
             grid-template-columns: 1fr;
             grid-gap: 5px;
+            margin: 0;
+            width: 100%;
+            margin-bottom: 32px;
         }
+        
 
         .title {
             display: block;
             width: 100%;
             height: auto;
+
+            @media screen and (max-width: 991.98px) {
+                width: 130%;
+            }
+
+            @media screen and (max-width: 767.98px) {
+                width: 100%;
+                height: 42px;
+                margin-bottom: 10px;
+            }
             
             h1 {
                 font-size: 86px;
@@ -155,10 +182,46 @@ body {
                 color: $schema-color-1;
                 line-height: 100px;
 
+                @media screen and (max-width: 1329.98px) {
+                    font-size: 82px;
+                }
+
+                @media screen and (max-width: 1280.98px) {
+                    font-size: 65px;
+                }
+
+                @media screen and (max-width: 1227.98px) {
+                    font-size: 60px;
+                }
+
+                @media screen and (max-width: 1133.98px) {
+                    font-size: 55px;
+                }
+
+                @media screen and (max-width: 1038.98px) {
+                    font-size: 50px;
+                }
 
                 @media screen and (max-width: 991.98px) {
-                    font-size: 60px;
-                    line-height: 82px;
+                    font-size: 45px;
+                }
+
+                @media screen and (max-width: 840.98px) {
+                    font-size: 40px;
+                }
+
+                @media screen and (max-width: 767.98px) {
+                    text-align: center;
+                    font-size: 50px;
+                    line-height: 42px;
+                }
+
+                @media screen and (max-width: 575.98px) {
+                    font-size: 40px;
+                }
+
+                @media screen and (max-width: 430.98px) {
+                    font-size: 32px;
                 }
             }
         }
@@ -167,9 +230,10 @@ body {
             display: block;
             width: 100%;
             height: auto;
+            text-align: center;
 
             color: $schema-color-2;
-            font-size: 24px;
+            font-size: 25px;
             font-weight: 400;
             line-height: 32px;
             text-shadow: 0px 4px 144px rgba(0, 0, 0, 0.5);
@@ -177,6 +241,30 @@ body {
             opacity: 0.8;
             letter-spacing: 0;
             font-family: $sourceCodePro;
+
+            @media screen and (max-width: 1329.98px) {
+                font-size: 23px;
+            }
+            @media screen and (max-width: 1280.98px) {
+                font-size: 22px;
+                width: 97%;
+            }
+            @media screen and (max-width: 1038.98px) {
+                font-size: 21px;
+                width: 98%;
+            }
+            @media screen and (max-width: 991.98px) {
+                font-size: 20px;
+                width: 96%;
+            }
+            @media screen and (max-width: 809.98px) {
+                font-size: 19px;
+            }
+            @media screen and (max-width: 767.98px) {
+                width: 100%;
+                text-align: center;
+                font-size: 21px;
+            }
         }
     }
 
@@ -184,12 +272,13 @@ body {
         display: block;
         width: 100%;
         height: 45.4vw;
+        margin-left: 48px;
 
         @media screen and (max-width: 1399.98px) {
             height: 40.4vw;
         }
         @media screen and (max-width: 767.98px) {
-            height: 70vw;
+            display: none;
         }
 
         .slideBox {
@@ -244,47 +333,45 @@ body {
 
                             @media screen and (max-width: 1399.98px) {
                                 width: $slideStartWidth;
-                                // height: calc($slideStartHeight / 1.25);
                                 height: 100%;
                             }
 
-                            // background: transparent;
-                            border-radius: 10px;
+                            background: transparent;
+                            border-radius:  22px;
                             overflow: hidden;
-
-                            // cursor: pointer;
-                            // pointer-events: all;
-
+                            
                             .dp-content {
                                 display: block;
                                 position: absolute;
                                 top: $top;
-                                left: $left;
+                                left: calc($left - $left);
+                                transform: scale(1) translateY(-50%);
 
                                 @media screen and (max-width: 1399.98px) {
-                                    top: calc($top / 1.5);
+                                    top: calc($top / 1.2);
                                 }
                                 @media screen and (max-width: 1299.98px) {
-                                    top: 65%;
-                                    transform: translateY(-50%);
+                                    top: 30%;
+                                    transform: translateY(-30%);
                                 }
-                                @media screen and (max-width: 575.98px) {
-                                    top: 65%;
-                                    left: 25px;
-                                    transform: translateY(-50%);
+                                // @media screen and (max-width: 999.98px) {
+                                //     transform: scale(0.9) translateY(-65%);
+                                // }
+                                @media screen and (max-width: 991.98px) {
+                                    transform: scale(0.8) translate(0%, -30%);
                                 }
                                 
-                                
-                                width: auto;
-                                height: auto;
+                                width: 100%;
+                                height: 100%;
 
                                 color: #ffffff;
                                 text-align: left;
-                                padding: 0;
+                                padding: 0 4rem;
 
                                 z-index: 2;
 
-                                .job, .name, .quantity, .social, .icon {
+
+                                .job, .name, .quantity, .social, .icon {  
                                     opacity: 0;
                                     transform: translate(0, $translateY);
                                     filter: blur(33px);
@@ -298,51 +385,115 @@ body {
                                     display: inline-flex;
                                     width: 100%;
                                     height: 24px;
+                                    gap: 10px;
 
                                     font-size: 11px;
                                     line-height: 16px;
                                     font-family: $poppins;
 
-                                    @media screen and (max-width: 575.98px) {
-                                        margin-bottom: 1rem;
-                                    }
+                                    margin-bottom: 1rem;
                                     
                                     .jobItem {
                                         display: block;
-            
-                                        border: 1px solid;
+                                        font-family: Regular;
+                                        // border: 1px solid;
                                         border-radius: 52px;
                                         
                                         padding: 0 25px;
                                         
                                         font-size: 11px;
-                                        font-weight: 700;
                                         line-height: 24px;
-                                        
+                                        letter-spacing: 1px;
                                         text-align: center;
-                                        margin-right: 12px;
                                         text-transform: uppercase;
+                                        background-color: #fff;
+                                        color: #000;
                                     }
                                 }
 
                                 .name {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: center;
+                                    justify-content: space-between;
+
+                                    .artistName {
+                                        font-size: 64px;
+                                        font-weight: bold;
+                                        font-family: $poppins;
+                                        text-transform: uppercase;
+                                        line-height: 1.3;
+                                        
+                                        // padding-bottom: 4%;
+                                        @media screen and (max-width: 1299.98px) {
+                                            font-size: 42px;
+                                        }
+                                    }
+
+                                    .moreInfo {
+                                        font-size: 18px;
+                                        color: #e5e5e5;
+                                    }
+
+                                }
+
+                                .contentBox {
                                     display: block;
+                                    position: absolute;
+                                    left: 0;
+                                    bottom: 5rem;
 
-                                    font-size: 48px;
-                                    font-weight: 600;
-                                    font-family: $montserrat;
-                                    text-transform: uppercase;
-                                    line-height: 1.3;
-                                    
-                                    border-bottom: 1px solid;
-                                    padding-bottom: 4%;
+                                    @media screen and (min-width: 992px) {
+                                        padding: 0 4rem;
+                                    }
+                                
+                                    // overflow: hidden;
+                                }
 
-                                    @media screen and (max-width: 767.98px) {
-                                        font-size: 32px;
+                                .describe {
+                                    display: block;
+                                    width: 100%;
+                                    height: auto;
+
+                                    position: relative;
+                                    top: 3rem;
+                                    max-height: 0;
+                                    opacity: 0;
+                                    transition: all 0.8s ease;
+                                
+                                    .divider {
+                                        display: block;
+                                        position: relative;
+
+                                        width: 0%;
+                                        opacity: 1;
+                                        background-color: #fff;
+                                        transition: width 1.2s ease;
                                     }
-                                    @media screen and (max-width: 575.98px) {
-                                        font-size: 25px;
+
+                                    .content {
+                                        display: -webkit-box;
+                                        display: block;
+                                        position: relative;
+                                        width: 100%;
+                                        height: auto;
+
+                                        margin-top: 0.5rem;
+
+                                        font-size: 16px;
+                                        line-height: 20px;
+
+                                        -webkit-box-orient: vertical;
+                                        -webkit-line-clamp: 3;
+                                        text-overflow: ellipsis;
+                                        overflow: hidden;
+
+                                        img {
+                                            max-width: 100%;
+                                            height: auto;
+                                        }
                                     }
+                                
                                 }
 
                                 .quantity {
@@ -361,7 +512,6 @@ body {
                                     line-height: 1.3;
                                     letter-spacing: 0;
                                     font-weight: 100;
-
                                     font-family: $poppins;
                                 }
 
@@ -369,11 +519,21 @@ body {
                                     display: flex;
                                     align-items: center;
                                     justify-content: flex-start;
-                                    gap: 10px;
+                                    gap: 15px;
                                     
-                                    line-height: 24px;
+                                    // position: relative;
+                                    // left: -0.75rem;
+
+                                    position: absolute;
+                                    left: 0rem;
+                                    bottom: 2.5rem;
+
+                                    line-height: 0;
                                     text-align: left;
-                                    margin-top: 5px;
+
+                                    @media screen and (min-width: 992px) {
+                                        padding: 0 4rem;
+                                    }
 
                                     img {
                                         max-width: 36.8px;
@@ -411,6 +571,8 @@ body {
                                     object-fit: cover;
                                     object-position: center;
                                 }
+
+                                
                             }
 
                             &[data-slide='0'] {
@@ -420,7 +582,7 @@ body {
 
                             &.active {
                                 position: relative;
-                                cursor: pointer;
+                                // cursor: pointer;
                                 pointer-events: auto;
                                 
                                 opacity: 1;
@@ -433,7 +595,20 @@ body {
                                     .icon { animation: showContent 1s ease-in-out 0.4s forwards; }
                                 }
 
-                                .dp-img { animation: reveal 1s ease-in-out forwards; }
+                                .dp-img { animation: reveal 0.57s ease-in-out forwards; }
+                            }
+
+                            &:hover, &:focus {
+                                .describe {
+                                    top: 0;
+                                    max-height: 1000px;
+                                    opacity: 1;
+
+                                    .divider {
+                                        width: 100%;
+                                        opacity: 1;
+                                    }
+                                }
                             }
                         }
                     }
@@ -483,14 +658,14 @@ body {
                                 height: 100%;
                             }
 
-                            border-radius: 10px;
+                            border-radius:  22px;
                             overflow: hidden;
                         
                             opacity: 0;
                             transform: translateX(0) scale(1);
 
                             transition-property: opacity, top, transform;
-                            transition-duration: 0.5s, 0.2s, 1s;
+                            transition-duration: 0.5s, 0.2s, 0.5s;
                             transition-timing-function: ease-in-out;
 
                             cursor: pointer;
@@ -512,14 +687,168 @@ body {
                     }
                 }
             }
+        }
+    }
 
-            @media screen and (max-width: 767.98px) {
-                grid-template-columns: $gridEnd;
-            
-                .layoutEnd {
-                    display: none;
+    .image-slider {
+        display: none;
+        @media screen and (max-width: 767.98px) {
+            display: grid;
+            grid-template-columns: 100%;
+            grid-gap: 20px;
+            overflow: hidden;
+
+            .image-item {
+                display: block;
+                position: relative;
+                margin-right: 0.5rem;
+                margin-left: 0.5rem;
+
+                .image {
+                    height: 500px;
+                    margin-bottom: 20px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 12px;
+                    }
+
+                    &::before {
+                        content: "";
+                        border-radius: 12px;
+                        position: absolute;
+                        width: 100%;
+                        height: 70%;
+                        z-index: 0;
+                        bottom: 0;
+                        margin-bottom: 20px;
+                        pointer-events: none;
+                        background: -webkit-linear-gradient(180deg, rgba(233, 8, 8, 0), rgba(255, 255, 255, 0.75));
+                        background: -o-linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75));
+                        background: -moz-linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75));
+                        background: linear-gradient(180deg, rgba(237, 240, 234, 0), rgb(17, 13, 13));
+                    }
+                }
+
+                .image-content {
+                    position: absolute;
+                    top: 230px;
+                    left: 50%;
+                    transform: translate(-50%,50%);
+                    width: 170px;
+                    height: auto;
+
+                    color: #ffffff;
+                    text-align: left;
+                    padding: 0;
+
+                    @media screen and (max-width: 479.98px) {
+                        width: 230px;
+                        top: 275px;
+                    }
+
+                    .image-job {
+                        display: inline-flex;
+                        width: 100%;
+                        height: 24px;
+
+                        line-height: 24px;
+                        font-family: $poppins;
+                        justify-content: space-around;
+
+                        @media screen and (max-width: 479.98px) {
+                            width: 70%;
+                            line-height: 18px;
+                            height: 18px;
+                            transform: translateX(20%);
+                        }
+
+                        .image-jobItem {
+                            display: block; 
+                            border: 1px solid;
+                            border-radius: 52px;
+                            padding: 0 20px;
+                            font-size: 8px;
+                            font-weight: 500;
+                            line-height: 24px;
+                            text-align: center;
+                            text-transform: uppercase;
+
+                            @media screen and (max-width: 479.98px) {
+                                font-size: 5px;
+                                padding: 0 15px;
+                                line-height: 18px;
+                            }
+                        }
+                    }
+
+                    .name {
+                        display: block;
+                        font-size: 26px;
+                        font-weight: 600;
+                        font-family: $montserrat;
+                        text-transform: uppercase;
+                        line-height: 1.3;
+                        
+                        border-bottom: 1px solid;
+                        text-align: center;
+
+                        @media screen and (max-width: 479.98px) {
+                            font-size: 35px;
+                        }
+
+                    }
+                    .quantity {
+                        display: inline-block;
+                        font-size: 15px;
+                        font-weight: 600;
+                        line-height: 1.3;
+                        margin-top: 10px;
+                        text-align: center;
+                        width: 100%;
+
+                        font-family: $montserrat;
+
+                        @media screen and (max-width: 479.98px) {
+                            font-size: 15px;
+                        }
+
+                    }
+                    .social {
+                        font-size: 13px;
+                        line-height: 1.3;
+                        letter-spacing: 0;
+                        font-weight: 100;
+                        font-family: $poppins;
+                        width: 100%;
+                        text-align: center;
+
+                        @media screen and (max-width: 479.98px) {
+                            font-size: 17px;
+                        }
+
+                    }
+                    .icon {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        line-height: 24px;
+                        text-align: left;
+                        margin-top: 5px;
+
+                        img {
+                            max-width: 30px;
+                            height: 18px;
+                            filter: invert(1);
+                        }
+                    }
                 }
             }
         }
+        .slick-prev, .slick-next {
+            display: none !important;
+        }
     }
-}
+} 
