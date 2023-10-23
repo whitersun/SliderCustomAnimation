@@ -51,9 +51,11 @@ function generateHTML() {
         $this.toggleClass('active');
 
         const contentBox = $this.parents('.contentBox').find('.describe .content')
+        const contentDivider = $this.parents('.contentBox').find('.divider')
         const currentContentHeight = contentBox.height();
 
         contentBox.parent().toggleClass('active');
+        contentDivider.toggleClass('active');
 
         if (!contentBox.parent().hasClass('active')) {
             contentBox.parent().css({'max-height': '0', 'top': '3rem',  'opacity': '0'});
