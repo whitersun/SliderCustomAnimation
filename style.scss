@@ -1,8 +1,18 @@
+@font-face {
+    font-family: 'SVN Poppins';
+    src: url('./font/SVN-Poppins-Regular.otf') format('opentype'),
+        url('./font/SVN-Poppins-Medium.otf') format('opentype'),
+        url('./font/SVN-Poppins-SemiBold.otf') format('opentype'),
+        url('./font/SVN-Poppins-Bold.otf') format('opentype');
+}
+
+
 $lato: 'Lato', sans-serif;
 $montserrat: 'Montserrat', sans-serif;
 $poppins: 'Poppins', sans-serif;
 $sourceCodePro: 'Source Sans Pro', sans-serif;
 $regular: 'Regular', sans-serif;
+$SVNPoppins: 'SVN Poppins';
 
 $schema-color-1: #FF4824;
 $schema-color-2: #494949;
@@ -31,6 +41,7 @@ $top: 50%;
 $left: 48px;
 $translateY: 200px;
 /** dpContentPosition */
+
 
 
 /** Global Setting */
@@ -506,6 +517,8 @@ body {
                                         margin-top: 0.5rem;
 
                                         font-size: 16px;
+                                        font-weight: 400;
+                                        font-family: $SVNPoppins;
                                         line-height: 20px;
 
                                         -webkit-box-orient: vertical;
@@ -648,7 +661,6 @@ body {
                                     top: 0;
                                     max-height: 1000px;
                                     opacity: 1;
-
                                 }
                             }
                         }
@@ -877,17 +889,14 @@ body {
                                 background: transparent;
                                 outline: none;
                                 
-                                border: 1px solid transparent;
-                                border-radius: 50%;
-                                transition: all 0.5s ease;
-
                                 padding: 15px 16px;
                             
                                 svg {
                                     position: absolute;
                                     top: 50%;
                                     left: 50%;
-                                    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                                    transform: translate(-50%, -50%) rotate(0deg);
+                                    transition: transform 0.5s ease;
 
                                     path {
                                         fill: #ffffff;
@@ -896,11 +905,8 @@ body {
                                 }
 
                                 &.active {
-                                    border: 1px solid #fff;
-                                    border-radius: 50%;
-
                                     svg {
-                                        transform: translate(-50%, -50%) scale(0.98) rotate(45deg);
+                                        transform: translate(-50%, -50%) rotate(-45deg);
                                     }
                                 }
                             }
