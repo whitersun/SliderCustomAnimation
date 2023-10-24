@@ -13,44 +13,44 @@ var defaultTranslateXValues = ['-100', '0', '14'];
 
 function generateHTML() {
     const generateSlideItem = (index, item) => {
-            return `
-                <div class="slide-item skeleton" data-slide="${index}" style="opacity: 1;">
-                    <div class="dp-content">
-                        <div class="contentBox">
-                            <div class="job">
-                                <div class="jobItem">${item.job}</div>
-                                ${item.jobItem ? `<div class="jobItem">${item.jobItem}</div>` : ''}
-                            </div>
-                            <div class="name">
-                                <span class="artistName">${item.name}</span>
-                                <span class="moreInfo">MORE INFO</span>
-                                <span class="lessInfo">LESS INFO</span>
-                            </div>
-                            
-                            <div class="divider"></div>
-                            <div class="describe">
-                                <span class="content">${item.describe_EN}</span>
-                            </div>
+        return `
+            <div class="slide-item skeleton" data-slide="${index}" style="opacity: 1;">
+                <div class="dp-content">
+                    <div class="contentBox">
+                        <div class="job">
+                            <div class="jobItem">${item.job}</div>
+                            ${item.jobItem ? `<div class="jobItem">${item.jobItem}</div>` : ''}
                         </div>
-
-                        <div class="icon">
-                            <a href=${item.fblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/facebook.svg" alt="facebook" /></a>
-                            <a href=${item.ytblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/youtube.svg" alt="youtube" /></a>
-                            <a href=${item.splink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/spotify.svg" alt="spotify" /></a>
+                        <div class="name">
+                            <span class="artistName">${item.name}</span>
+                            <span class="moreInfo">MORE INFO</span>
+                            <span class="lessInfo">LESS INFO</span>
+                        </div>
+                        
+                        <div class="divider"></div>
+                        <div class="describe">
+                            <span class="content">${item.describe_EN}</span>
                         </div>
                     </div>
-                    <div class="dp-img">
-                        <img
-                            width="900"
-                            height="645"
-                            decoding="async"
-                            loading="lazy"
-                            class="img-fluid" src="${item.img}"
-                            alt="${item.name}"
-                        />
+
+                    <div class="icon">
+                        <a href=${item.fblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/facebook.svg" alt="facebook" /></a>
+                        <a href=${item.ytblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/youtube.svg" alt="youtube" /></a>
+                        <a href=${item.splink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/spotify.svg" alt="spotify" /></a>
                     </div>
                 </div>
-            `
+                <div class="dp-img">
+                    <img
+                        width="900"
+                        height="645"
+                        decoding="async"
+                        loading="lazy"
+                        class="img-fluid" src="${item.img}"
+                        alt="${item.name}"
+                    />
+                </div>
+            </div>
+        `
     }
     
     const generateSlideItemEnd = (index, item) => {
@@ -84,6 +84,12 @@ function generateHTML() {
     information.forEach(function (item, index) {
         slideStart.append(generateSlideItem(index, item));
         slideEnd.append(generateSlideItemEnd(index, item));
+
+        slideStart.find('.slide-item').each(function (item, index) {
+            const heightOfDescription = $(this).find('.describe .content').height();
+        
+            $(this).find('.contentBox').css('--height-of-description', `${heightOfDescription + 20}px`);
+        });
 
         slideEnd.find('.slide-item').each(function (item, index) {
             const imagesCache = $(this).find('.view img');

@@ -659,7 +659,7 @@ body {
 
                                 .describe {
                                     top: 0;
-                                    max-height: 1000px;
+                                    max-height: var(--height-of-description);
                                     opacity: 1;
                                 }
                             }
@@ -904,11 +904,11 @@ body {
                                     }
                                 }
 
-                                &.active {
-                                    svg {
-                                        transform: translate(-50%, -50%) rotate(-45deg);
-                                    }
-                                }
+                                // &.active {
+                                //     svg {
+                                //         transform: translate(-50%, -50%) rotate(-45deg);
+                                //     }
+                                // }
                             }
 
                         }
@@ -970,11 +970,11 @@ body {
                                 transition: all 0.8s ease;
                             }
 
-                            &.active {
-                                &::after {
-                                    width: 100%;
-                                }
-                            }
+                            // &.active {
+                            //     &::after {
+                            //         width: 100%;
+                            //     }
+                            // }
                         }
 
                         .describe {
@@ -1032,6 +1032,25 @@ body {
                             max-width: 30px;
                             height: 18px;
                             filter: invert(1);
+                        }
+                    }
+                }
+
+                &.active {
+                    .contentBox {
+
+                        .name {
+                            .btnSeeMore {
+                                svg {
+                                    transform: translate(-50%, -50%) rotate(-45deg);
+                                }
+                            }
+                        }
+
+                        .divider {
+                            &::after {
+                                width: 100%;
+                            }
                         }
                     }
                 }

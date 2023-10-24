@@ -48,16 +48,13 @@ function generateHTML() {
 
     $('.btnSeeMore').on('click', function () {
         const $this = $(this);
-        $this.toggleClass('active');
+
+        $this.parents('.image-item').toggleClass('active');
 
         const contentBox = $this.parents('.contentBox').find('.describe .content')
-        const contentDivider = $this.parents('.contentBox').find('.divider')
         const currentContentHeight = contentBox.height();
 
-        contentBox.parent().toggleClass('active');
-        contentDivider.toggleClass('active');
-
-        if (!contentBox.parent().hasClass('active')) {
+        if (!$this.parents('.image-item').hasClass('active')) {
             contentBox.parent().css({'max-height': '0', 'top': '3rem',  'opacity': '0'});
         } else {
             contentBox.parent().css({'max-height': `${currentContentHeight}px`, 'top': '0', 'opacity': '1'});
@@ -101,4 +98,30 @@ $('.image-slider').slick({
         }
     }
 ]
+});
+
+let prevSlide = 0;
+$('.image-slider').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+    prevSlide = currentSlide;
+    return prevSlide;
+});
+
+$('.image-slider').on('afterChange', function (event, slick, currentSlide, nextSlide) {
+    const $this = $(this);
+
+    if (currentSlide === prevSlide) {
+        return;
+    }
+
+    const lastSlide = $this.find(`.image-item[data-slick-index="${prevSlide}"]`);
+
+    const contentBox = lastSlide.find('.describe .content')
+    const currentContentHeight = contentBox.height();
+
+    lastSlide.removeClass('active');
+    if (!lastSlide.hasClass('active')) {
+        contentBox.parent().css({'max-height': '0', 'top': '3rem',  'opacity': '0'});
+    } else {
+        contentBox.parent().css({'max-height': `${currentContentHeight}px`, 'top': '0', 'opacity': '1'});
+    }
 });
