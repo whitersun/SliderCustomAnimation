@@ -803,7 +803,7 @@ body {
 
                     color: #ffffff;
                     text-align: left;
-                    padding: 0 1.5rem 2rem 1.5rem;
+                    padding: 0 0.5rem 2rem 0.5rem;
 
                     // @media screen and (max-width: 479.98px) {
                     //     width: 230px;
@@ -851,11 +851,11 @@ body {
                                 padding: 4px 18px;
                                 margin-bottom: 1rem;
 
-                                // @media screen and (max-width: 479.98px) {
-                                //     font-size: 5px;
-                                //     padding: 0 15px;
-                                //     line-height: 18px;
-                                // }
+                                @media screen and (max-width: 559.98px) {
+                                    font-size: 12px;
+                                    padding: 0 14px;
+                                    line-height: 18px;
+                                }
                             }
                         }
 
@@ -988,7 +988,7 @@ body {
                             top: 3rem;
                             max-height: 0;
                             opacity: 0;
-                            transition: all 0.2s ease;
+                            transition: all 0.8s ease;
 
                             margin-top: 0.75rem;
                         
