@@ -1,6 +1,7 @@
 @font-face {
     font-family: 'SVN Poppins';
-    src: url('./font/SVN-Poppins-Regular.otf') format('opentype'),
+    src: url('./font/SVN-Poppins-Light.otf') format('opentype'),
+        url('./font/SVN-Poppins-Regular.otf') format('opentype'),
         url('./font/SVN-Poppins-Medium.otf') format('opentype'),
         url('./font/SVN-Poppins-SemiBold.otf') format('opentype'),
         url('./font/SVN-Poppins-Bold.otf') format('opentype');
@@ -520,6 +521,7 @@ body {
                                         font-weight: 400;
                                         font-family: $SVNPoppins;
                                         line-height: 20px;
+                                        letter-spacing: 0.9px;
 
                                         -webkit-box-orient: vertical;
                                         -webkit-line-clamp: 3;
