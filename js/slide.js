@@ -96,7 +96,8 @@ function generateHTML() {
             imagesCache.css('opacity', '0');
         });
     });
-}
+};
+
 
 
 // TODO: Lazy load images
@@ -144,7 +145,7 @@ function LazyLoadingImage () {
             imagesCache.css('opacity', '1');
         });
 
-        slideStart.find('.slide-item[data-slide="0"]').addClass('active');
+        slideStart.find('.slide-item[data-slide="0"]').addClass('active canHover');
     }).catch((error) => {
         console.error("Error loading images:", error);
         // Handle error condition
@@ -224,19 +225,29 @@ function ClickToChangeNextSlide(event) {
 
     const nextSlide = slideStart.find(`.slide-item[data-slide="${increasedIndex}"]`);
     nextSlide.addClass('active').animate({ position: 'relative', 'z-index': '1' }, function() {
+        const $this = $(this);
         prevSlide.css('z-index', '0');
         setTimeout(() => {
-            prevSlide.removeClass('active');
+            prevSlide.removeClass('active canHover');
             if(window,innerWidth <= 768)
                 $(".slide-item").on("click", ClickToChangeNextSlide);
             else {
                 slideStart.find(".slide-item").off("click", ClickToChangeNextSlide);
                 slideEnd.find(".slide-item").on("click", ClickToChangeNextSlide);
             }
+
+            afterIconRunAnimation($this.find('.icon'));
         }, 250);
     });
 
     $(".slide-item").off("click", ClickToChangeNextSlide);
+}
+
+function afterIconRunAnimation(element) {
+    
+    element.on('animationend', function() {
+        $(this).parents('.slide-item').addClass('canHover');
+    });
 }
 
 function excuteClickToChangeNextSlide() {
