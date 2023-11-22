@@ -161,9 +161,11 @@ function ClickToChangeNextSlide(event) {
     event.preventDefault();
 
     const prevSlide = slideStart.find(`.slide-item[data-slide="${increasedIndex}"]`);
-    prevSlide.css({'position': 'absolute', 'pointer-events': 'none'});
+    prevSlide.css('position', 'absolute');
 
     increasedIndex = (increasedIndex + 1) % information.length;
+    console.log('increasedIndex: ', increasedIndex);
+
     const slideEndItems = slideEnd.find('.slide-item');
 
     const slideConditionalArray = [];
@@ -222,10 +224,9 @@ function ClickToChangeNextSlide(event) {
     
 
     const nextSlide = slideStart.find(`.slide-item[data-slide="${increasedIndex}"]`);
-    nextSlide.addClass('active').css('pointer-events', 'auto').animate({ position: 'relative', 'z-index': '1' }, function() {
+    nextSlide.addClass('active').animate({ position: 'relative', 'z-index': '1' }, function() {
         const $this = $(this);
-        prevSlide.css({'z-index': '0'});
-
+        prevSlide.css('z-index', '0');
         setTimeout(() => {
             prevSlide.removeClass('active canHover');
             if(window,innerWidth <= 768)
@@ -243,10 +244,9 @@ function ClickToChangeNextSlide(event) {
 }
 
 function afterIconRunAnimation(element) {
+    
     element.on('animationend', function() {
         $(this).parents('.slide-item').addClass('canHover');
-
-        element.off('animationend');
     });
 }
 

@@ -339,10 +339,10 @@ body {
                             background: transparent;
                             border-radius:  22px;
 
-                            // pointer-events: none;
+                            pointer-events: none;
 
-                            // -webkit-user-select: none;
-                            // user-select: none;
+                            -webkit-user-select: none;
+                            user-select: none;
                             overflow: hidden;
                             
                             .dp-content {
@@ -630,8 +630,18 @@ body {
                                 }
 
                                 .dp-img { animation: reveal 0.57s ease-in-out forwards; }
-                                
+
                                 &:hover, &:focus {
+                                    .name {
+                                        .moreInfo {
+                                            display: none;
+                                        }
+
+                                        .lessInfo {
+                                            display: block;
+                                        }
+                                    }
+
                                     .divider {
                                         width: 100%;
 
@@ -642,25 +652,18 @@ body {
                                         }
                                     }
 
-                                    &.canHover {
-                                        .name {
-                                            .moreInfo {
-                                                display: none;
-                                            }
-    
-                                            .lessInfo {
-                                                display: block;
-                                            }
-                                        }
-    
-                                        .describe {
-                                            top: 0;
-                                            max-height: var(--height-of-description);
-                                            opacity: 1;
-                                        }
-                                    }
                                 }
-                                
+                                .describe {
+                                    top: 0;
+                                    max-height: var(--height-of-description);
+                                    opacity: 1;
+                                }
+                                // &.canHover {
+                                //     -webkit-user-select: auto;
+                                //     user-select: auto;
+                                //     pointer-events: auto;
+
+                                // }
                             }
 
                             @keyframes showTranslateY {
