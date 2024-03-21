@@ -1,19 +1,10 @@
 import { info } from "./info.js";
+import { languageExport, ObserverTargetEl } from "./lang.js"
 
 const information = info;
 const layoutMobile = $('.image-slider');
 
-let lastLang;
-let lang = localStorage.getItem('selectedLang').toLowerCase() || 'EN'.toLowerCase();
-
-let resizeTimer;
-
-function debounce(func, delay) {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(func, delay);
-}
-
-generateHTML();
+let lang = languageExport();
 
 function generateHTML() {
     const generateSlideItem = (index, item) => {
@@ -77,7 +68,23 @@ function generateHTML() {
             contentBox.parent().css({'max-height': `${currentContentHeight}px`, 'top': '0', 'opacity': '1'});
         }
     });
+    // $('.btnSeeMore').on('click', function () {
+    //     const $this = $(this);
+
+    //     $this.parents('.image-item').toggleClass('active');
+
+    //     const contentBox = $this.parents('.contentBox').find('.describe .content')
+    //     const currentContentHeight = contentBox.height();
+
+    //     if (!$this.parents('.image-item').hasClass('active')) {
+    //         contentBox.parent().css({'max-height': '0', 'top': '0',  'opacity': '0'});
+    //     } else {
+    //         contentBox.parent().css({'max-height': `${currentContentHeight}px`, 'top': '0', 'opacity': '1'});
+    //     }
+    // });
 }
+
+generateHTML();
 
 const slickObj = $('.slideWrapperContainer .image-slider').slick({
     // dots: true,
@@ -113,45 +120,103 @@ const slickObj = $('.slideWrapperContainer .image-slider').slick({
 ]
 });
 
-window.addEventListener('resize', function () {
-    return debounce(function () {
+function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+}
 
-        const allActive = layoutMobile.find('.image-item.active');
-        const allActiveContent = allActive.find('.describe');
+function changeLanguageFunction (newLanguage) {
+    const activeSlickHaveItem = slickObj.find('.slick-slide');
+    console.log(activeSlickHaveItem)
 
-        // remove active
-        if (this.innerWidth >= 768) {
-            allActive.removeClass('active');
-            allActiveContent.css({'max-height': '0', 'top': '0',  'opacity': '0'});
+    
+    activeSlickHaveItem.each(function (index, item) {
+        const $this = $(this);
+        const currentClass = $this.data('class');
+        const description = $this.find('.describe .content');
+        
+        const currentInfo = info.find((item) => item.class === String(currentClass));
+
+        const vietnamese = currentInfo.describe_VI;
+        const english = currentInfo.describe_EN;
+
+        if (newLanguage.toLowerCase() === 'EN'.toLowerCase()) {
+            description.text(english)
+        } else {
+            description.text(vietnamese)
         }
-    }, 250);
-})
 
-slickObj.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        if ($this.hasClass('active')) {
+            const heightOfDescription = description.height();
+            description.parent().css({'max-height': `${heightOfDescription}px`, 'top': '0', 'opacity': '1'});
+        } else {
+            description.parent().css({'max-height': '0', 'top': '0',  'opacity': '0'});
+        }
+
+    })
+}
+
+function setupObserverIfNeeded () {
+    if (window.innerWidth < 768) {
+        ObserverTargetEl({
+            selector: $('.items-laguages'),
+            attribute: 'class',
+            className: 'active_lag',
+            onChange: function (newLang) {
+                lang = newLang;
+                changeLanguageFunction(newLang);
+            }
+        })
+    }
+}
+
+setupObserverIfNeeded();
+window.addEventListener('resize', debounce(setupObserverIfNeeded));
+
+let prevSlide = 0;
+$('.slideWrapperContainer .image-slider').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
     prevSlide = currentSlide;
     return prevSlide;
 });
 
-slickObj.on('afterChange', function (event, slick, currentSlide, nextSlide) {
+$('.slideWrapperContainer .image-slider').on('afterChange', function (event, slick, currentSlide, nextSlide) {
     const $this = $(this);
 
     if (currentSlide === prevSlide) {
         return;
     }
 
-    const getAllHaveActive = $this.find('.image-item.active');
     const lastSlide = $this.find(`.image-item[data-slick-index="${prevSlide}"]`);
 
     const activeSlick = $this.find(`.image-item[data-slick-index="${currentSlide}"]`);
+    const currentClass = activeSlick.data('class');
+    
+    // TODO: filter info from active slide
+    const currentInfo = info.find((item) => item.class === String(currentClass));
+    const vietnamese = currentInfo.describe_VI;
+    const english = currentInfo.describe_EN;
+
+
     const contentBox = lastSlide.find('.describe .content');
+
+    const currentContentBox = activeSlick.find('.describe .content');
+    const currentContentHeight = contentBox.height();
+
+    // TODO: translate language
+    if (lang.toLowerCase() === 'EN'.toLowerCase()) {
+        currentContentBox.text(english)
+    } else {
+        currentContentBox.text(vietnamese)
+    }
 
     lastSlide.removeClass('active'); 
 
-    getAllHaveActive.each(function (index, item) {
-        // TODO: remove Active
-
-        const $$this = $(this);
-        $$this.removeClass('active');
-        $$this.find('.describe').animate({'max-height': '0', 'top': '0',  'opacity': '0'}, 'fast');
-    });
+    if (!lastSlide.hasClass('active')) {
+        contentBox.parent().css({'max-height': '0', 'top': '0',  'opacity': '0'});
+    } else {
+        contentBox.parent().css({'max-height': `${currentContentHeight}px`, 'top': '0', 'opacity': '1'});
+    }
 });

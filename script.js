@@ -1,9 +1,8 @@
-var arr = [];
+const arr = [];
 
 // Touch
 const carousel = document.querySelector(".carousel");
 const firstImg = carousel.querySelectorAll("img")[0];
-console.log('firstImg: ', firstImg);
 const arrowIcons = document.querySelectorAll(".wrapper i");
 
 let isDragStart = false
@@ -11,6 +10,14 @@ let isDragging = false
 let prevPageX
 let prevScrollLeft
 let positionDiff;
+
+const getUrlAndTakeParams = () => {
+    const url = window.location.href;
+    const urlConvert = new URL(url);
+    console.log("urlConvert: ", urlConvert);
+}
+
+getUrlAndTakeParams();
 
 const showHideIcons = () => {
     // showing and hiding prev/next icon according to carousel scroll left value

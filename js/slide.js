@@ -7,36 +7,59 @@ const layoutEnd   = $('.layoutEnd');
 const slideStart = layoutStart.find('.slideWrapper');
 const slideEnd = layoutEnd.find('.slideWrapper');
 // var defaultTranslateXValues = ['-100', '0', '12', '22', '30', '36'];
-var defaultTranslateXValues = ['-100', '0', '14'];
+const defaultTranslateXValues = ['-100', '0', '14'];
 
+// get data url
+// const currentURL = window.location.href;
+// const url = new URL(currentURL);
+// let lang = url.searchParams.get("lang");
+
+let lang = languageExport();
+
+isDomReady(async function() {
+    generateHTML();
+    LazyLoadingImage();
+
+    executeClickToChangeNextSlide();
+});
+
+function isDomReady(fn) {
+    return document.readyState === 'interactive' || document.readyState === 'complete'
+        ? setTimeout(fn, 1)
+        : document.addEventListener('DOMContentLoaded', fn);
+} 
 
 
 function generateHTML() {
     const generateSlideItem = (index, item) => {
         return `
-            <div class="slide-item skeleton" data-slide="${index}" style="opacity: 1;">
+            <div class="slide-item skeleton" data-class="${item.class}" data-slide="${index}" style="opacity: 1;">
                 <div class="dp-content">
                     <div class="contentBox">
                         <div class="job">
-                            <div class="jobItem">${item.job}</div>
-                            ${item.jobItem ? `<div class="jobItem">${item.jobItem}</div>` : ''}
+                            <div class="jobItem" data-translate-key="slideWrapperContainer_user_job_${index + 1}">${item.job}</div>
+                            ${item.jobItem ? `<div class="jobItem" data-translate-key="slideWrapperContainer_user_job_item_${index + 1}">${item.jobItem}</div>` : ''}
                         </div>
                         <div class="name">
-                            <span class="artistName">${item.name}</span>
-                            <span class="moreInfo">MORE INFO</span>
-                            <span class="lessInfo">LESS INFO</span>
+                            <span class="artistName" data-translate-key="slideWrapperContainer_artistName_${index + 1}">${item.name}</span>
+                            
+                            <button class="btn btnSeeMore">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m-7-7h14"/></svg>
+                            </button>
                         </div>
                         
                         <div class="divider"></div>
                         <div class="describe">
-                            <span class="content">${item.describe_EN}</span>
+                            <p class="content" data-translate-key="slideWrapperContainer_content_${index + 1}">${lang.toLowerCase() === 'EN'.toLowerCase() ? item.describe_EN : item.describe_VI}</p>
                         </div>
                     </div>
 
                     <div class="icon">
-                        <a href=${item.fblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/facebook.svg" alt="facebook" /></a>
-                        <a href=${item.ytblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/youtube.svg" alt="youtube" /></a>
-                        <a href=${item.splink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid" style="filter: invert(1);" src="./assets/icons/spotify.svg" alt="spotify" /></a>
+                        ${item.fblink ? `<a href=${item.fblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid"" src="./assets/icons/facebook.svg" alt="facebook" /></a>` : ''}
+                        ${item.instagram ? `<a href=${item.instagram} target="_blank"><img decoding="async" loading="lazy" class="img-fluid"" src="./assets/icons/instagram.svg" alt="spotify" /></a>` : ''}
+                        ${item.ytblink ? `<a href=${item.ytblink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid"" src="./assets/icons/youtube.svg" alt="youtube" /></a>` : ''}
+                        ${item.tiktok ? `<a href=${item.tiktok} target="_blank"><img decoding="async" loading="lazy" class="img-fluid"" src="./assets/icons/tiktok.svg" alt="spotify" /></a>` : ''}
+                        ${item.splink ? `<a href=${item.splink} target="_blank"><img decoding="async" loading="lazy" class="img-fluid"" src="./assets/icons/spotify.svg" alt="spotify" /></a>` : '' }
                     </div>
                 </div>
                 <div class="dp-img">
@@ -96,8 +119,12 @@ function generateHTML() {
             imagesCache.css('opacity', '0');
         });
     });
-};
 
+    return {
+        slideStart: slideStart[0],
+        slideEnd: slideEnd[0]
+    }
+};
 
 
 // TODO: Lazy load images
@@ -134,7 +161,7 @@ function LazyLoadingImage () {
             });
     })
 
-    Promise.all(imagePromises).then(() => {
+    return Promise.all(imagePromises).then(() => {
         console.log("All images loaded successfully");
         // Run your final action here after all images are loaded
 
@@ -146,24 +173,30 @@ function LazyLoadingImage () {
         });
 
         slideStart.find('.slide-item[data-slide="0"]').addClass('active canHover');
+    
+        return {
+            slideStart: slideStart[0],
+            slideEnd: slideEnd[0]
+        }
     }).catch((error) => {
         console.error("Error loading images:", error);
         // Handle error condition
+
+        return error.message
     });
 }
-
-generateHTML();
-LazyLoadingImage();
-
 
 let increasedIndex = 0;
 function ClickToChangeNextSlide(event) {
     event.preventDefault();
 
     const prevSlide = slideStart.find(`.slide-item[data-slide="${increasedIndex}"]`);
+    // prevSlide.css('position', 'absolute');
     prevSlide.css({'position': 'absolute', 'pointer-events': 'none'});
 
     increasedIndex = (increasedIndex + 1) % information.length;
+    console.log('increasedIndex: ', increasedIndex);
+
     const slideEndItems = slideEnd.find('.slide-item');
 
     const slideConditionalArray = [];
@@ -195,8 +228,7 @@ function ClickToChangeNextSlide(event) {
     }
 
     function slideEndAddItems (conditional) {
-        slideEndItems
-        .filter(`[data-slide="${conditional}"]`).addClass('active')
+        return slideEndItems.filter(`[data-slide="${conditional}"]`).addClass('active')
     }
 
     slideEndItems.find(`[data-slide="${slideConditionalArray[0]}"]`).removeClass('active');
@@ -222,21 +254,47 @@ function ClickToChangeNextSlide(event) {
     
 
     const nextSlide = slideStart.find(`.slide-item[data-slide="${increasedIndex}"]`);
-    nextSlide.addClass('active').css('pointer-events', 'auto').animate({ position: 'relative', 'z-index': '1' }, function() {
-        const $this = $(this);
-        prevSlide.css({'z-index': '0'});
+    // nextSlide.addClass('active').animate({ position: 'relative', 'z-index': '1' }, function() {
+    nextSlide
+        .addClass('active')
+        .css('pointer-events', 'auto')
+        .animate({ 
+            position: 'relative', 
+            'z-index': '1' 
+        },  function() {
+            const $this = $(this);
 
-        setTimeout(() => {
-            prevSlide.removeClass('active canHover');
-            if(window,innerWidth <= 768)
-                $(".slide-item").on("click", ClickToChangeNextSlide);
-            else {
-                slideStart.find(".slide-item").off("click", ClickToChangeNextSlide);
-                slideEnd.find(".slide-item").on("click", ClickToChangeNextSlide);
-            }
+            // const classItem = $this.attr('data-class');
+            // const description = $this.find('.contentBox .describe .content');
+            // const infoOfClass = info.find((obj) => obj.class === classItem);
+            // const english = infoOfClass.describe_EN;
+            // const vietnamese = infoOfClass.describe_VI;
 
-            afterIconRunAnimation($this.find('.icon'));
-        }, 250);
+            // if (lang === 'EN'.toLowerCase()) description.text(english)
+            // else description.text(vietnamese)
+
+            slideStart.find('.slide-item').each(function () {
+                const heightOfDescription = $(this).find('.describe .content').height();
+            
+                $(this).find('.contentBox').css('--height-of-description', `${heightOfDescription + 20}px`);
+            });
+
+
+            // prevSlide.css('z-index', '0');
+            prevSlide.css({'z-index': '0'});
+            
+            setTimeout(() => {
+                prevSlide.removeClass('active canHover');
+                if(window,innerWidth <= 768)
+                    $(".slide-item").on("click", ClickToChangeNextSlide);
+                else {
+                    slideStart.find(".slide-item").off("click", ClickToChangeNextSlide);
+                    slideEnd.find(".slide-item").on("click", ClickToChangeNextSlide);
+                }
+                afterIconRunAnimation($this.find('.icon'));
+
+            }, 250
+        );
     });
 
     $(".slide-item").off("click", ClickToChangeNextSlide);
@@ -245,16 +303,15 @@ function ClickToChangeNextSlide(event) {
 function afterIconRunAnimation(element) {
     element.on('animationend', function() {
         $(this).parents('.slide-item').addClass('canHover');
-
         element.off('animationend');
     });
 }
 
-function excuteClickToChangeNextSlide() {
+function executeClickToChangeNextSlide() {
     $(".slide-item").off("click", ClickToChangeNextSlide);
 
     debounce(function() {
-        if(window,innerWidth <= 768) {
+        if(window.innerWidth <= 768) {
             $(".slide-item").on("click", ClickToChangeNextSlide);
         }
         else {
@@ -270,6 +327,3 @@ function debounce(func, delay) {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(func, delay);
 }
-
-document.addEventListener("DOMContentLoaded", excuteClickToChangeNextSlide);
-window.addEventListener("resize", excuteClickToChangeNextSlide);

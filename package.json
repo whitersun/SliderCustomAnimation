@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"jquery": "^3.7.0"
+		"jquery": "^3.7.1"
 	},
 	"name": "3dstackcardslider",
 	"description": "SliderCard",
@@ -11,5 +11,6 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"devDependencies": {}
 }

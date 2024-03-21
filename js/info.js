@@ -25,7 +25,7 @@ export const info = [{
     "imgHeight": "./assets/images/osad1.jpg",
     "quantity": "Over 30 million",
     "social": "Followers on Instagram",
-    "describe_EN": "Meet OSAD, the young rapper with a musical palette that's fresh, lively, and undeniably catchy. He's captured the hearts of many fans through a string of chart-topping hits like \"Yêu Đương,\" \"Người Âm Phủ,\" \"Lời Có Cánh,\" and \"Yêu Sắc Yếu.\"",
+    "describe_EN": "Meet OSAD, the young rapper with a musical palette that's fresh, lively, and undeniably catchy. He's captured the hearts of many fans through a string of chart-topping hits like \"Yeu Đương\", \"Nguoi Am Phu\", \"Loi Co Canh\", and \"Yeu Sac Yeu.\"",
     "describe_VI": "OSAD, anh chàng rapper trẻ với màu sắc âm nhạc tươi mới, sống động và lôi cuốn. Anh đã chinh phục trái tim của nhiều người hâm mộ thông qua một loạt các bản hits của mình như \"Yêu Đương,\" \"Người Âm Phủ,\" \"Lời Có Cánh,\" và \"Yêu Sắc Yếu.\"",
     "fblink": "https://www.facebook.com/osadofficial310/",
     "instagram": "https://www.instagram.com/myqnam",
@@ -42,7 +42,7 @@ export const info = [{
     "imgHeight": "./assets/images/MiNaYoong1.jpg",
     "quantity": "Over 50 milions",
     "social": "Views on Youtube",
-    "describe_EN": "Mina Young, a rising star who took her first steps as a streamer, officially made her debut as a singer in 2023 with her debut track \"Cung Trăng\". What's not widely known is that she's also a music student at the Military University of Culture and Arts in Hanoi, adding depth to her artistry.",
+    "describe_EN": "Mina Young, a rising star who took her first steps as a streamer, officially made her debut as a singer in 2023 with her debut track \"Cung Trang\". What's not widely known is that she's also a music student at the Military University of Culture and Arts in Hanoi, adding depth to her artistry.",
     "describe_VI": "Bắt đầu sự nghiệp của mình với vai trò là streamer, Mina Young đã chính thức debut vào năm 2023 với single đầu tay mang tên \"Cung Trăng\". Điều ít người biết là cô cũng là một sinh viên ngành âm nhạc tại Trường Đại học Văn hóa Nghệ thuật Quân đội ở Hà Nội, nơi nuôi dưỡng năng khiếu nghệ thuật của cô.",
     "fblink": "https://www.facebook.com/imminayoung",
     "instagram": "https://www.instagram.com/imminayoung/",
@@ -50,7 +50,7 @@ export const info = [{
     "tiktok": "https://www.tiktok.com/@imminayoung",
     "splink": "https://open.spotify.com/artist/204u7fdJOUtQk2tMppK8m0?si=e12y-oDXSkysHS9X6u11RA"
 }, {
-    "name": "HẢI ĐĂNG DOO",
+    "name": "HAI DANG DOO",
     "job": "Singer",
     "class": "4",
     "position": "4",
@@ -59,7 +59,7 @@ export const info = [{
     "imgHeight": "./assets/images/HaiDang1.jpg",
     "quantity": "Over 50 milions",
     "social": "Views on Youtube",
-    "describe_EN": "From TikTok sensation, boasting a following of over 2.6 million, to a potential Gen Z music icon, Hải Đăng Doo possesses a magnetic stage presence and a voice that's nothing short of captivating.",
+    "describe_EN": "From TikTok sensation, boasting a following of over 2.6 million, to a potential Gen Z music icon, Hai Dang Doo possesses a magnetic stage presence and a voice that's nothing short of captivating.",
     "describe_VI": "Từ hiện tượng TikTok, với hơn 2,6 triệu người theo dõi, trở thành một biểu tượng âm nhạc thế hệ Z tiềm năng, Hải Đăng Doo sở hữu khả năng trình diễn trên sân khấu cực cuốn hút và một giọng ca ấn tượng.",
     "fblink": "https://www.facebook.com/babysharkdoodoodoohoohoo/",
     "instagram": "https://www.instagram.com/hidadoo/",
@@ -80,11 +80,10 @@ export const info = [{
     "describe_VI": "Miina là tân binh trong làng nhạc Việt, được quản lý bởi công ty giải trí DREAMeR Entertainment. Với hình ảnh theo đuổi phong cách ngọt ngào, nữ tính như các ngôi sao K-Pop, Miina còn sở hữu giọng ca đầy tiềm năng.",
     "fblink": "https://www.facebook.com/hi.im.miina/",
     "instagram": "https://www.instagram.com/miina_dreamer/",
-    "ytblink": "https://www.youtube.com/channel/UC9rDC1n0QWyFtczcbrRy3Dg",
     "tiktok": "https://www.tiktok.com/@hi.im.miina",
     "splink": "https://open.spotify.com/artist/76nos2JmvLyYGZ28ribrf7?si=cSJkedbXTXe42YiAcUcbMg"
 }, {
-    "name": "NGÔ LAN HƯƠNG",
+    "name": "NGO LAN HUONG",
     "job": "Singer",
     "class": "6",
     "position": "6",
@@ -93,7 +92,7 @@ export const info = [{
     "imgHeight": "./assets/images/NgoLanHuong1.jpg",
     "quantity": "Over 50 milions",
     "social": "Plays on SoundCloud",
-    "describe_EN": "From The Voice Vietnam, Ngô Lan Hương has confidently stepped into her role as an artist, showcasing her talents as both a songwriter and a remarkable singer. Her recent hit, \"Yêu Đừng Sợ Đau,\" is just one example of her musical prowess. Embracing a path of her own, she's leaving behind her cover artist days and venturing into a unique musical journey.",
+    "describe_EN": "From The Voice Vietnam, Ngo Lan Huong has confidently stepped into her role as an artist, showcasing her talents as both a songwriter and a remarkable singer. Her recent hit, \"Yeu Dung So Dau\", is just one example of her musical prowess. Embracing a path of her own, she's leaving behind her cover artist days and venturing into a unique musical journey.",
     "describe_VI": "Bước ra từ The Voice Vietnam, Ngô Lan Hương đã tự tin bước vào làng nhạc Việt với vai trò là một nghệ sĩ với khả năng hát và sáng tác ấn tượng.Bản hit gần đây của cô, \"Yêu Đừng Sợ Đau,\" chỉ là một ví dụ về tài năng âm nhạc của cô. Bước vào một con đường riêng của mình, cô đang rũ bỏ đi hình tượng ca sĩ cover và mạo hiểm thể hiện bản thân trên hành trình âm nhạc đầy hứa hẹn.",
     "fblink": "https://www.facebook.com/ngolanhuongofficial/?locale=vi_VN",
     "instagram": "https://www.instagram.com/ngolanhuong04/",
@@ -113,8 +112,6 @@ export const info = [{
     "describe_EN": "Meet $A Milo, a gifted protege of the celebrated rapper BinZ. With impeccable rap skills and a profound lyrical insight, his music delves deep into meaningful messages and life lessons he aims to convey.",
     "describe_VI": "$A Milo là học trò của nam rapper tài năng BinZ. Với kỹ năng rap xuất sắc và cái nhìn sâu sắc trong mỗi lời bài hát, âm nhạc của anh đem tới những thông điệp có ý nghĩa và những bài học cuộc sống mà anh mong muốn truyền tải qua đó.",
     "fblink": "https://www.facebook.com/samilo.444/",
-    "instagram": "https://www.instagram.com/ngolanhuong04/",
     "ytblink": "https://www.youtube.com/@samiloofficial111",
-    "tiktok": "https://www.tiktok.com/@ngolanhuong04",
     "splink": "https://open.spotify.com/artist/55YrB6LSt3ZShzAiBXTEcA?si=oDDmITTHS7Kfop6ai0yyPA"
 }]
